@@ -1,4 +1,4 @@
-﻿#include "Tetris.h"
+#include "Tetris.h"
 #include "mygraphics.h"
 #include <conio.h>
 using namespace std;
@@ -11,7 +11,7 @@ Board::Board() {	//default constructor
 	gotoxy(40, 8);
 	cout << "Rotation of Current Piece";		//all rotations will be printed of the current piece underneath
 
-	gotoxy(40, 15);
+	gotoxy(40, 20);
 	cout << "Score: ";		//score will be counted and printed
 
 	width = 12;
@@ -5411,6 +5411,53 @@ void Tetris::gameOver() {			//Game over printed with graphics
 	drawRectangle(290, 260, 465, 270, 210, 65, 98, 210, 98, 65);
 	_getch();
 }
+void Tetris::printScore(int &score)		//prints score after the game is over before asking for playing again
+{
+	cls();
+	gotoxy(40, 0);
+	//S
+	drawLine(50, 10, 70, 10, 225, 0, 225);
+	drawLine(50, 10, 50, 20, 225, 0, 225);
+	drawLine(50, 20, 70, 20, 225, 0, 225);
+	drawLine(70, 20, 70, 30, 225, 0, 225);
+	drawLine(50, 30, 70, 30, 225, 0, 225);
+
+	//C
+	drawLine(80, 10, 100, 10, 225, 0, 225);
+	drawLine(80, 10, 80, 30, 225, 0, 225);
+	drawLine(80, 30, 100, 30, 225, 0, 225);
+
+	//O
+	drawLine(110, 10, 130, 10, 225, 0, 225);
+	drawLine(130, 10, 130, 30, 225, 0, 225);
+	drawLine(110, 30, 130, 30, 225, 0, 225);
+	drawLine(110, 30, 110, 10, 225, 0, 225);
+
+	//R
+	drawLine(140, 10, 140, 30, 225, 0, 225);
+	drawLine(140, 10, 160, 10, 225, 0, 225);
+	drawLine(160, 10, 160, 20, 225, 0, 225);
+	drawLine(140, 20, 160, 20, 225, 0, 225);
+	drawLine(140, 20, 160, 30, 225, 0, 225);
+
+	//E
+	drawLine(170, 10, 190, 10, 225, 0, 225);
+	drawLine(170, 10, 170, 30, 225, 0, 225);
+	drawLine(170, 20, 190, 20, 225, 0, 225);
+	drawLine(170, 30, 190, 30, 225, 0, 225);
+
+	//:
+	drawRectangle(210, 15, 215, 18, 225, 0, 225);
+	drawRectangle(210, 22, 215, 25, 225, 0, 225);
+
+	showConsoleCursor(false);
+	cout << "\n\t\t\t\t";
+	
+	cout << "Score: " << score;
+
+	delaay(30);
+	ExitScreen();
+}
 void Tetris::gamePlay() {				//Entire game play of Tetris
 	srand((unsigned)time(0));
 	Piece** piece = new Piece * [7];
@@ -5428,7 +5475,6 @@ void Tetris::gamePlay() {				//Entire game play of Tetris
 	int score = 0;
 	bool endgame = false;
 	int again_random = 0;
-	b.print_board();		//prints the board of tetris
 	b.print_board();		//prints the board of tetris
 	int random = (rand() % 7);
 	while (!endgame) {
@@ -5483,5 +5529,7 @@ void Tetris::gamePlay() {				//Entire game play of Tetris
 
 		random = again_random;
 	}
+	score = b.get_score();
+	printScore(score);
 	ExitScreen();
 }
