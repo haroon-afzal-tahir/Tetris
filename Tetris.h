@@ -12,6 +12,7 @@ public:
 	void ExitScreen();		//allows user to either play the game again or exit the system
 	void gamePlay();		//Entire game play of Tetris
 	void gameOver();		//Game over printed with graphics
+	void printScore(int&score);
 };
 
 //Board class
